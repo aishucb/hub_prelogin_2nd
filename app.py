@@ -257,12 +257,11 @@ def submit_admin_awerness():
 
                 # Execute the INSERT query
                 insert_query = """
-                    INSERT INTO mdl_grade_categories 
-                    (courseid, parent, depth, path, fullname, aggregation, keephigh, droplow, 
-                     aggregateonlygraded, aggregateoutcomes, timecreated, timemodified, hidden)
-                    VALUES (%s, NULL, 0, '/1/', %s, 1, 0, 0, 0, 0, UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), 0)
+                    INSERT INTO awerness (category_id, grade, description, due_date)
+VALUES (%s, %s, %s, %s);
+
                 """
-                cursor.execute(insert_query, (course_id, description))
+                cursor.execute(insert_query, (course_id, category_id,description,due_date))
 
                 # Commit the changes
                 mysql_connection.commit()
