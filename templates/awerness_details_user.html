@@ -39,7 +39,7 @@
         <label for="userid">User ID:</label>
         <select id="userid" name="userid">
             {% for user in users %}
-            <option value="{{ user[0] }}">{{ user[1] }}</option>
+            <option value="{{ user[1] }}">{{ user[1] }}</option>
         {% endfor %}
         </select>
         <br>
@@ -53,7 +53,7 @@
         <br>
 
         <label for="editable">Editable:</label>
-        <input type="checkbox" id="editable" name="editable">
+        <input type="checkbox" id="editable" name="editable" value="TRUE" style="display: none;">
         <br>
 
         <input type="submit" value="Submit">

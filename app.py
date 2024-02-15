@@ -201,7 +201,7 @@ def awerness_details(awerness_id):
             cursor = mysql_connection.cursor()
 
             # Fetch detailed data for a specific 'awerness_id'
-            query = f"SELECT * FROM awerness WHERE id = {awerness_id};"
+            query = f"SELECT id, category_id, grade, description, due_date FROM awerness where category_id = {awerness_id};"
             cursor.execute(query)
             awerness_details = cursor.fetchone()
 
@@ -396,7 +396,7 @@ def awerness_details_user(awerness_id):
 @app.route('/submit_form_awerness_user', methods=['POST'])
 def submit_form_awerness_user():
     if request.method == 'POST':
-        assignment_id = request.form.get('assignment_id')
+        assignment_id = request.form.get('id')
         course_id = request.form.get('course_id')
         category_id = request.form.get('category_id')
         description = request.form.get('description')
