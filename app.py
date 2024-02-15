@@ -229,7 +229,11 @@ def update_mark(awerness_id):
 
             # Update the mark based on the form submission
             new_mark = request.form.get('new_mark')
+            print(f"Awerness ID: {awerness_id}, New Mark: {new_mark}")  # Add this line for debugging
+
             update_query = f"UPDATE user_awerness_submission SET mark = {new_mark} WHERE assignment_id = {awerness_id};"
+            print(f"Update Query: {update_query}")  # Add this line for debugging
+
             cursor.execute(update_query)
             mysql_connection.commit()
 
@@ -245,6 +249,7 @@ def update_mark(awerness_id):
 
     # Return an empty response (HTTP 204 No Content)
     return make_response("", 204)
+
 
 
 def get_grade_categories():
