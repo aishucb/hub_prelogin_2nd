@@ -231,7 +231,7 @@ def update_mark(awerness_id):
             new_mark = request.form.get('new_mark')
             print(f"Awerness ID: {awerness_id}, New Mark: {new_mark}")  # Add this line for debugging
 
-            update_query = f"UPDATE user_awerness_submission SET mark = {new_mark} WHERE assignment_id = {awerness_id};"
+            update_query = f"UPDATE user_awerness_submission SET mark = {new_mark} WHERE submission_id = {awerness_id};"
             print(f"Update Query: {update_query}")  # Add this line for debugging
 
             cursor.execute(update_query)
