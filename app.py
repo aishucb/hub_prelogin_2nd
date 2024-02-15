@@ -334,7 +334,7 @@ VALUES (%s, %s, %s, %s);
 
 
 @app.route('/awerness_user')
-def awerness_admin():
+def awerness_user():
     try:
         # Establish MySQL connection
         mysql_db_config = {
