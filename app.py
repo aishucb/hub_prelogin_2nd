@@ -374,23 +374,27 @@ def awerness_details_user(awerness_id):
             cursor = mysql_connection.cursor()
 
             # Fetch detailed data for a specific 'awerness_id'
-            query = f"SELECT * FROM awerness WHERE id = {awerness_id};"
-            cursor.execute(query)
+            awerness_query = f"SELECT * FROM awerness WHERE id = {awerness_id};"
+            cursor.execute(awerness_query)
             awerness_details = cursor.fetchone()
-            query = f"SELECT id,fullname FROM mdl_user where department='vongster';"
-            cursor.execute(query)
-            users=cursor.fetchall()
+
+            # Fetch the list of users based on the specified condition
+            users_query = f"SELECT id, fullname FROM mdl_user WHERE department='vongster';"
+            cursor.execute(users_query)
+            users = cursor.fetchall()
 
     except mysql.connector.Error as err:
         print(f"Error: {err}")
         awerness_details = []
+        users = []
 
     finally:
         # Close the cursor and connection
         cursor.close()
         mysql_connection.close()
 
-    return render_template('awerness_details_user.html', awerness_details=awerness_details,users=users)
+    return render_template('awerness_details_user.html', awerness_details=awerness_details, users=users)
+
 
 
 @app.route('/submit_form_awerness_user', methods=['POST'])
