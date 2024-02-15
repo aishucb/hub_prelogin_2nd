@@ -1,5 +1,4 @@
-
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,32 +9,33 @@
 <body>
     <h1>Awareness Details Form</h1>
 
-    <form action="/submit_form_awerness_user" method="post">
-        
+    <form action="/submit_form_awerness_user" method="post" enctype="multipart/form-data">
+        <!-- Display awareness details if available -->
         {% if awerness_details %}
-        <label for="id">ID:</label>
-        <input type="text" value="{{ awerness_details[0] }}" name="id" readonly>
-        <br>
+            <label for="id">ID:</label>
+            <input type="text" value="{{ awerness_details[0] }}" name="id" readonly>
+            <br>
 
-        <label for="category_id">Category ID:</label>
-        <input type="text" value="{{ awerness_details[1] }}" name="category_id" readonly>
-        <br>
+            <label for="category_id">Category ID:</label>
+            <input type="text" value="{{ awerness_details[1] }}" name="category_id" readonly>
+            <br>
 
-        <label for="grade">Grade:</label>
-        <input type="text" value="{{ awerness_details[2] }}" name="grade" readonly>
-        <br>
+            <label for="grade">Grade:</label>
+            <input type="text" value="{{ awerness_details[2] }}" name="grade" readonly>
+            <br>
 
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" rows="4" cols="50" readonly>{{ awerness_details[3] }}</textarea>
-        <br>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="4" cols="50" readonly>{{ awerness_details[3] }}</textarea>
+            <br>
 
-        <label for="due_date">Due Date:</label>
-        <input type="text" value="{{ awerness_details[4] }}" name="due_date" readonly>
-        <br>
-            {% else %}
-                <p>No details found.</p>
-            {% endif %}
+            <label for="due_date">Due Date:</label>
+            <input type="text" value="{{ awerness_details[4] }}" name="due_date" readonly>
+            <br>
+        {% else %}
+            <p>No details found.</p>
+        {% endif %}
 
+        <!-- User input fields -->
         <label for="userid">User ID:</label>
         <select id="userid" name="userid">
             <option value="user1">User 1</option>
@@ -59,8 +59,7 @@
         <input type="submit" value="Submit">
     </form>
 
+    <!-- Link to go back to Awareness Admin page -->
     <a href="{{ url_for('awerness_admin') }}">Back to Awareness Admin</a>
 </body>
 </html>
-
-
