@@ -205,7 +205,7 @@ def add_awerness():
 def get_items():
     selected_category_id = request.form.get('category_id')
     items = get_grade_items(selected_category_id)
-    return render_template('items.html', items=items)
+    return render_template('awerness_add.html', items=items)
 
 
 if __name__ == '__main__':
