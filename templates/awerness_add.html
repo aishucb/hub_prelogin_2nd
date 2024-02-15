@@ -18,12 +18,11 @@
     </form>
 
     {% if items %}
-        <h2>Grade Items</h2>
-        <ul>
-            {% for item in items %}
-                <li>{{ item[3] }} - Course ID: {{ item[1] }} - Item ID: {{ item[0] }}</li>
-            {% endfor %}
-        </ul>
+    <select name="grade" id="grade">
+        {% for category in categories %}
+            <option value="{{ item[0] }}">{{ item[2] }}</option>
+        {% endfor %}
+    </select>
     {% endif %}
 </body>
 </html>
