@@ -19,7 +19,7 @@
 
     {% if items %}
     <select name="grade" id="grade">
-        {% for category in categories %}
+        {% for item in items %}
             <option value="{{ item[0] }}">{{ item[2] }}</option>
         {% endfor %}
     </select>
