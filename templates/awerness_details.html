@@ -9,19 +9,22 @@
 <body>
     <h1>Awerness Details</h1>
 
-    <body>
-        <h1>Awerness Details</h1>
-    
-        {% if awerness_details %}
-            {% for entry in awerness_details %}
-                <p>ID: {{ entry[0] }}</p>
-                <p>Category ID: {{ entry[1] }}</p>
+    {% if awerness_details %}
+        {% for entry in awerness_details %}
+            <p>ID: {{ entry[0] }}</p>
+            <p>Category ID: {{ entry[1] }}</p>
+            
+            <form method="POST" action="{{ url_for('update_mark', awerness_id=entry[0]) }}">
+                <label for="new_mark">New Mark:</label>
+                <input type="number" name="new_mark" id="new_mark" value="{{ entry[11] }}" required>
+                <button type="submit">Update Mark</button>
+            </form>
 
-            {% endfor %}
-        {% else %}
-            <p>No details found.</p>
-        {% endif %}
-    
-        <a href="{{ url_for('awerness_admin') }}">Back to Awerness Admin</a>
+        {% endfor %}
+    {% else %}
+        <p>No details found.</p>
+    {% endif %}
+
+    <a href="{{ url_for('awerness_admin') }}">Back to Awerness Admin</a>
 </body>
 </html>
