@@ -1,4 +1,4 @@
-<form class="form-container" action="/submit_admin_awerness" method="POST" enctype="multipart/form-data">
+
 <form action="/get_grade_items" method="post">
     <label for="category">Select Category:</label>
     <select name="category_id" id="category">
@@ -10,6 +10,7 @@
 </form>
 
 {% if items %}
+<form class="form-container" action="/submit_admin_awerness" method="POST" enctype="multipart/form-data"></form>
     <p>Selected Category: {{ category_name }}</p>
     <select name="grade" id="grade">
         {% for item in items %}
