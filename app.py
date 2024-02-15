@@ -191,6 +191,33 @@ def awerness_admin():
 
     return render_template('awerness.html', awerness_data=awerness_data)
 
+@app.route('/awerness_details/<int:awerness_id>')
+def awerness_details(awerness_id):
+    try:
+        # Establish MySQL connection
+        mysql_connection = mysql.connector.connect(**mysql_db_config)
+
+        if mysql_connection.is_connected():
+            cursor = mysql_connection.cursor()
+
+            # Fetch detailed data for a specific 'awerness_id'
+            query = f"SELECT * FROM user_awerness_submission WHERE assignment_id = {awerness_id};"
+            cursor.execute(query)
+            awerness_details = cursor.fetchall()
+
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+        awerness_details = []
+
+    finally:
+        # Close the cursor and connection
+        if 'cursor' in locals() and cursor is not None:
+            cursor.close()
+        if 'mysql_connection' in locals() and mysql_connection.is_connected():
+            mysql_connection.close()
+
+    return render_template('awerness_details.html', awerness_details=awerness_details)
+
 @app.route('/update_mark/<int:awerness_id>', methods=['POST'])
 def update_mark(awerness_id):
     try:
@@ -221,6 +248,33 @@ def update_mark(awerness_id):
 
 
 
+@app.route('/update_mark/<int:awerness_id>', methods=['POST'])
+def update_mark(awerness_id):
+    try:
+        # Establish MySQL connection
+        mysql_connection = mysql.connector.connect(**mysql_db_config)
+
+        if mysql_connection.is_connected():
+            cursor = mysql_connection.cursor()
+
+            # Update the mark based on the form submission
+            new_mark = request.form.get('new_mark')
+            update_query = f"UPDATE user_awerness_submission SET mark = {new_mark} WHERE assignment_id = {awerness_id};"
+            cursor.execute(update_query)
+            mysql_connection.commit()
+
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+
+    finally:
+        # Close the cursor and connection
+        if 'cursor' in locals() and cursor is not None:
+            cursor.close()
+        if 'mysql_connection' in locals() and mysql_connection.is_connected():
+            mysql_connection.close()
+
+    # Redirect back to the details page after updating the mark
+    return redirect(url_for('awerness_details', awerness_id=awerness_id))
 
 def get_grade_categories():
     connection = mysql.connector.connect(**mysql_db_config)
