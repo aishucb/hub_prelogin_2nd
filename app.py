@@ -169,7 +169,7 @@ def get_grade_categories():
     cursor = connection.cursor()
 
     try:
-        cursor.execute("SELECT id, courseid, fullname FROM mdl_grade_categories;")
+        cursor.execute("select id,fullname from mdl_course;")
         data = cursor.fetchall()
         return data
     except mysql.connector.Error as err:
@@ -185,7 +185,7 @@ def get_grade_items(category_id):
     cursor = connection.cursor()
 
     try:
-        cursor.execute("SELECT id, courseid, categoryid, itemname FROM mdl_grade_items WHERE categoryid = %s;", (category_id,))
+        cursor.execute("select id,courseid,fullname from mdl_grade_categories WHERE courseid = %s;", (category_id,))
         data = cursor.fetchall()
         return data
     except mysql.connector.Error as err:
