@@ -247,35 +247,6 @@ def update_mark(awerness_id):
     return make_response("", 204)
 
 
-
-@app.route('/update_mark/<int:awerness_id>', methods=['POST'])
-def update_mark(awerness_id):
-    try:
-        # Establish MySQL connection
-        mysql_connection = mysql.connector.connect(**mysql_db_config)
-
-        if mysql_connection.is_connected():
-            cursor = mysql_connection.cursor()
-
-            # Update the mark based on the form submission
-            new_mark = request.form.get('new_mark')
-            update_query = f"UPDATE user_awerness_submission SET mark = {new_mark} WHERE assignment_id = {awerness_id};"
-            cursor.execute(update_query)
-            mysql_connection.commit()
-
-    except mysql.connector.Error as err:
-        print(f"Error: {err}")
-
-    finally:
-        # Close the cursor and connection
-        if 'cursor' in locals() and cursor is not None:
-            cursor.close()
-        if 'mysql_connection' in locals() and mysql_connection.is_connected():
-            mysql_connection.close()
-
-    # Redirect back to the details page after updating the mark
-    return redirect(url_for('awerness_details', awerness_id=awerness_id))
-
 def get_grade_categories():
     connection = mysql.connector.connect(**mysql_db_config)
     cursor = connection.cursor()
