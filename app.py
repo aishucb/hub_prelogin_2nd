@@ -162,7 +162,60 @@ def submit():
 
 @app.route('/awerness_admin')
 def awerness_admin():
-    return render_template('awerness.html')
+    try:
+        # Establish MySQL connection
+        mysql_db_config = {
+            'host': '127.0.0.1',
+            'user': 'vongle',
+            'password': 'ashiv3377',
+            'database': 'osqacademy',
+        }
+        mysql_connection = mysql.connector.connect(**mysql_db_config)
+
+        if mysql_connection.is_connected():
+            cursor = mysql_connection.cursor()
+
+            # Fetch data from the 'awerness' table
+            query = "SELECT id, category_id, grade, description, due_date FROM awerness;"
+            cursor.execute(query)
+            awerness_data = cursor.fetchall()
+
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+        awerness_data = []
+
+    finally:
+        # Close the cursor and connection
+        cursor.close()
+        mysql_connection.close()
+
+    return render_template('awerness.html', awerness_data=awerness_data)
+
+@app.route('/awerness_details/<int:awerness_id>')
+def awerness_details(awerness_id):
+    try:
+        # Establish MySQL connection
+        mysql_connection = mysql.connector.connect(**mysql_db_config)
+
+        if mysql_connection.is_connected():
+            cursor = mysql_connection.cursor()
+
+            # Fetch detailed data for a specific 'awerness_id'
+            query = f"SELECT * FROM awerness WHERE id = {awerness_id};"
+            cursor.execute(query)
+            awerness_details = cursor.fetchone()
+
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+        awerness_details = []
+
+    finally:
+        # Close the cursor and connection
+        cursor.close()
+        mysql_connection.close()
+
+    return render_template('awerness_details.html', awerness_details=awerness_details)
+
 
 def get_grade_categories():
     connection = mysql.connector.connect(**mysql_db_config)

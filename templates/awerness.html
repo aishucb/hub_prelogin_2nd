@@ -38,8 +38,15 @@
 <body>
     <div id="header"></div>
     <div id="add"><button id="myButton">Add Assignment</button></div>
-    <h1>Hello, {{ name }}!</h1>
 
+    {% for data in awerness_data %}
+        <div class="card">
+            <h2>{{ data[1] }} - {{ data[2] }}</h2>
+            <p>{{ data[3] }}</p>
+            <p>Due Date: {{ data[4] }}</p>
+            <a href="{{ url_for('awerness_details', awerness_id=data[0]) }}">Details</a>
+        </div>
+    {% endfor %}
     <script type="text/javascript">
         document.getElementById("myButton").onclick = function () {
             location.href = "/add_awerness";

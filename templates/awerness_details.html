@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awerness Details</title>
+</head>
+<body>
+    <h1>Awerness Details</h1>
+
+    {% if awerness_details %}
+        <p>ID: {{ awerness_details[0] }}</p>
+        <p>Category ID: {{ awerness_details[1] }}</p>
+        <p>Grade: {{ awerness_details[2] }}</p>
+        <p>Description: {{ awerness_details[3] }}</p>
+        <p>Due Date: {{ awerness_details[4] }}</p>
+        <!-- Add more details as needed -->
+    {% else %}
+        <p>No details found.</p>
+    {% endif %}
+
+    <a href="{{ url_for('awerness_admin') }}">Back to Awerness Admin</a>
+</body>
+</html>
