@@ -17,12 +17,12 @@
             <option value="{{ item[0] }}">{{ item[2] }}</option>
         {% endfor %}
     </select>
-{% endif %}
-
-<label for="description">Description:</label>
+    <label for="description">Description:</label>
     <textarea name="description" id="description" required></textarea><br>
 
     <label for="due_date">Due Date:</label>
     <input type="date" name="due_date" id="due_date" required><br>
 <button type="submit">Submit</button>
 </form>
+{% endif %}
+
