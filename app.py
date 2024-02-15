@@ -194,6 +194,8 @@ def get_grade_items(category_id):
     finally:
         cursor.close()
         connection.close()
+
+
 def get_category_name(category_id):
     connection = mysql.connector.connect(**mysql_db_config)
     cursor = connection.cursor()
@@ -230,9 +232,7 @@ def get_items():
     return render_template('awerness_add.html', category_id=selected_category_id, category_name=selected_category_name, items=items)
 
 
-from flask import Flask, render_template, request
 
-app = Flask(__name__)
 
 @app.route('/submit_admin_awerness', methods=['POST'])
 def submit_admin_awerness():
