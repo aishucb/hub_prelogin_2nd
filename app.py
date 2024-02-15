@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request
+from flask import Flask, render_template, request, redirect, url_for
 import requests
 import mysql.connector
 import random
@@ -330,6 +330,104 @@ VALUES (%s, %s, %s, %s);
 
     return render_template('awerness.html') 
 
+#user panel for awerness
+
+
+@app.route('/awerness_user')
+def awerness_admin():
+    try:
+        # Establish MySQL connection
+        mysql_db_config = {
+            'host': '127.0.0.1',
+            'user': 'vongle',
+            'password': 'ashiv3377',
+            'database': 'osqacademy',
+        }
+        mysql_connection = mysql.connector.connect(**mysql_db_config)
+
+        if mysql_connection.is_connected():
+            cursor = mysql_connection.cursor()
+
+            # Fetch data from the 'awerness' table
+            query = "SELECT id, category_id, grade, description, due_date FROM awerness;"
+            cursor.execute(query)
+            awerness_data = cursor.fetchall()
+
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+        awerness_data = []
+
+    finally:
+        # Close the cursor and connection
+        cursor.close()
+        mysql_connection.close()
+
+    return render_template('awerness_user.html', awerness_data=awerness_data)
+
+@app.route('/awerness_details_user/<int:awerness_id>')
+def awerness_details(awerness_id):
+    try:
+        # Establish MySQL connection
+        mysql_connection = mysql.connector.connect(**mysql_db_config)
+
+        if mysql_connection.is_connected():
+            cursor = mysql_connection.cursor()
+
+            # Fetch detailed data for a specific 'awerness_id'
+            query = f"SELECT * FROM awerness WHERE id = {awerness_id};"
+            cursor.execute(query)
+            awerness_details = cursor.fetchone()
+
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+        awerness_details = []
+
+    finally:
+        # Close the cursor and connection
+        cursor.close()
+        mysql_connection.close()
+
+    return render_template('awerness_details_user.html', awerness_details=awerness_details)
+@app.route('/submit_form_awerness_user', methods=['POST'])
+def submit_form_awerness_user():
+    if request.method == 'POST':
+        user_id = request.form['userid']
+        image = request.files['image']
+        text = request.form['text']
+        editable = 'editable' in request.form
+
+        try:
+            mysql_connection = mysql.connector.connect(**mysql_db_config)
+            
+            if mysql_connection.is_connected():
+                cursor = mysql_connection.cursor()
+
+                # Save the image to the 'uploads' folder
+                image_filename = f"{datetime.now().strftime('%Y%m%d%H%M%S%f')}.png"
+                image_path = os.path.join(app.config['UPLOAD_FOLDER'], image_filename)
+                image.save(image_path)
+
+                # Insert data into the SQL table 'user_awerness_submission'
+                insert_query = """
+                    INSERT INTO user_awerness_submission (user_id, image_filename, text, editable)
+                    VALUES (%s, %s, %s, %s);
+                """
+                cursor.execute(insert_query, (user_id, image_filename, text, editable))
+
+                mysql_connection.commit()
+
+                print("Data successfully inserted into user_awerness_submission table.")
+
+        except mysql.connector.Error as err:
+            print(f"Error: {err}")
+        finally:
+            # Close the cursor and connection
+            cursor.close()
+            mysql_connection.close()
+
+        return redirect(url_for('index'))
+
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
