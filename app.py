@@ -201,9 +201,9 @@ def awerness_details(awerness_id):
             cursor = mysql_connection.cursor()
 
             # Fetch detailed data for a specific 'awerness_id'
-            query = f"SELECT * FROM user_awerness_submission where assignment_id= {awerness_id} ;"
+            query = f"SELECT * FROM user_awerness_submission WHERE assignment_id = {awerness_id};"
             cursor.execute(query)
-            awerness_details = cursor.fetchone()
+            awerness_details = cursor.fetchall()
 
     except mysql.connector.Error as err:
         print(f"Error: {err}")
@@ -211,8 +211,10 @@ def awerness_details(awerness_id):
 
     finally:
         # Close the cursor and connection
-        cursor.close()
-        mysql_connection.close()
+        if 'cursor' in locals() and cursor is not None:
+            cursor.close()
+        if 'mysql_connection' in locals() and mysql_connection.is_connected():
+            mysql_connection.close()
 
     return render_template('awerness_details.html', awerness_details=awerness_details)
 
