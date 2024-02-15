@@ -38,9 +38,9 @@
         <!-- User input fields -->
         <label for="userid">User ID:</label>
         <select id="userid" name="userid">
-            <option value="user1">User 1</option>
-            <option value="user2">User 2</option>
-            <!-- Add more options as needed -->
+            {% for user in users %}
+            <option value="{{ user[0] }}">{{ user[1] }}</option>
+        {% endfor %}
         </select>
         <br>
 

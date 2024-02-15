@@ -377,6 +377,9 @@ def awerness_details_user(awerness_id):
             query = f"SELECT * FROM awerness WHERE id = {awerness_id};"
             cursor.execute(query)
             awerness_details = cursor.fetchone()
+            query = f"SELECT id,fullname FROM mdl_user where department='vongster';"
+            cursor.execute(query)
+            users=cursor.fetchall()
 
     except mysql.connector.Error as err:
         print(f"Error: {err}")
@@ -387,7 +390,7 @@ def awerness_details_user(awerness_id):
         cursor.close()
         mysql_connection.close()
 
-    return render_template('awerness_details_user.html', awerness_details=awerness_details)
+    return render_template('awerness_details_user.html', awerness_details=awerness_details,users=users)
 
 
 @app.route('/submit_form_awerness_user', methods=['POST'])
@@ -433,7 +436,7 @@ def submit_form_awerness_user():
             cursor.close()
             mysql_connection.close()
 
-        return redirect(url_for('awerness_admin'))
+        return redirect(url_for('awerness_user'))
 
     return render_template('index.html')
 
