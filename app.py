@@ -194,6 +194,22 @@ def get_grade_items(category_id):
     finally:
         cursor.close()
         connection.close()
+def get_category_name(category_id):
+    connection = mysql.connector.connect(**mysql_db_config)
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute("select fullname from mdl_course WHERE id = %s;", (category_id,))
+        category_name = cursor.fetchone()
+        return category_name[0] if category_name else None
+    except mysql.connector.Error as err:
+        print(f"Error fetching category name: {err}")
+        return None
+    finally:
+        cursor.close()
+        connection.close()
+
+
 
 @app.route('/add_awerness', methods=['GET', 'POST'])
 def add_awerness():
@@ -209,8 +225,10 @@ def add_awerness():
 @app.route('/get_grade_items', methods=['POST'])
 def get_items():
     selected_category_id = request.form.get('category_id')
+    selected_category_name = get_category_name(selected_category_id)  # Fetch the category name
     items = get_grade_items(selected_category_id)
-    return render_template('awerness_add.html', items=items)
+    return render_template('awerness_add.html', category_id=selected_category_id, category_name=selected_category_name, items=items)
+
 
 
 if __name__ == '__main__':

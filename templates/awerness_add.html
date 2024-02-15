@@ -2,16 +2,17 @@
     <label for="category">Select Category:</label>
     <select name="category_id" id="category">
         {% for category in categories %}
-            <option value="{{ category[0] }}" {% if selected_category_id == category[0] %}selected{% endif %}>{{ category[1] }}</option>
+            <option value="{{ category[0] }}" {% if category_id == category[0] %}selected{% endif %}>{{ category[1] }}</option>
         {% endfor %}
     </select>
     <button type="submit">Submit</button>
 </form>
 
 {% if items %}
-<select name="grade" id="grade">
-    {% for item in items %}
-        <option value="{{ item[0] }}">{{ item[2] }}</option>
-    {% endfor %}
-</select>
+    <p>Selected Category: {{ category_name }}</p>
+    <select name="grade" id="grade">
+        {% for item in items %}
+            <option value="{{ item[0] }}">{{ item[2] }}</option>
+        {% endfor %}
+    </select>
 {% endif %}
