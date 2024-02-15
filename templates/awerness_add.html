@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flask Template Example</title>
+    <title>Add Awareness</title>
     <style>
         body
         {
@@ -17,33 +17,28 @@
             background-color: #9F121E;
             margin: 0px;
         }
-        #add {
-            height: 50px;
-            width: 100%;
-            background-color: #ffffff;
-            margin: 0px;
-        }
-        #add button{
-            position: Absolute;
-            right: 20px;
-            margin-top: 20px;
-            padding:10px;
-            color: #ffffff;
-            background-color: #9F121E;
-            border: 0px;
-        }
-
     </style>
 </head>
 <body>
     <div id="header"></div>
-    <div id="add"><button id="myButton">Add Assignment</button></div>
-    <h1>Hello, {{ name }}!</h1>
+    <h1>Add Awareness</h1>
 
-    <script type="text/javascript">
-        document.getElementById("myButton").onclick = function () {
-            location.href = "/add_awerness";
-        };
-    </script>
+    <form method="post" action="/submit_awerness">
+        <label for="vongster_dropdown">Select Vongster:</label>
+        <select id="vongster_dropdown" name="selected_vongster">
+            {% for vongster in vongster_names %}
+                <option value="{{ vongster[0] }}">{{ vongster[1] }}</option>
+            {% endfor %}
+        </select>
+
+        <br>
+
+        <label for="awareness_text">Enter Awareness Text:</label>
+        <input type="text" id="awareness_text" name="awareness_text" required>
+
+        <br>
+
+        <button type="submit">Submit</button>
+    </form>
 </body>
 </html>

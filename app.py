@@ -161,7 +161,24 @@ def awerness_admin():
 
 @app.route('/add_awerness')
 def add_awerness():
-    return render_template('awerness_add.html')
+    mysql_db_config = {
+    'host': '127.0.0.1',
+    'user': 'vongle',
+    'password': 'ashiv3377',
+    'database': 'osqacademy',
+}
+    try:
+        mysql_connection = mysql.connector.connect(**mysql_db_config)
+        if mysql_connection.is_connected():
+            cursor = mysql_connection.cursor()
+            query = "select id,username from mdl_user where department='vongster';"
+
+            cursor.execute(query)
+            vongster_names = cursor.fetchall()
+    except mysql.connector.Error as err:
+        return f"Error: {err}"
+
+    return render_template('awerness_add.html',vongster_names=vongster_names)
 
 
 if __name__ == '__main__':
