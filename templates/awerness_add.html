@@ -1,3 +1,4 @@
+<form class="form-container" action="/submit_admin_awerness" method="POST" enctype="multipart/form-data">
 <form action="/get_grade_items" method="post">
     <label for="category">Select Category:</label>
     <select name="category_id" id="category">
@@ -16,3 +17,11 @@
         {% endfor %}
     </select>
 {% endif %}
+
+<label for="description">Description:</label>
+    <textarea name="description" id="description" required></textarea><br>
+
+    <label for="due_date">Due Date:</label>
+    <input type="date" name="due_date" id="due_date" required><br>
+
+</form>

@@ -230,6 +230,31 @@ def get_items():
     return render_template('awerness_add.html', category_id=selected_category_id, category_name=selected_category_name, items=items)
 
 
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+
+@app.route('/submit_admin_awerness', methods=['POST'])
+def submit_admin_awerness():
+    if request.method == 'POST':
+        category_id = request.form.get('category_id')
+        grade = request.form.get('grade')  # Assuming the second dropdown has the name 'grade'
+        description = request.form.get('description')
+        due_date = request.form.get('due_date')
+
+        # Now you can do something with the data, e.g., save it to a database
+        # For now, let's print the data
+        print(f"Category ID: {category_id}")
+        print(f"Grade: {grade}")
+        print(f"Description: {description}")
+        print(f"Due Date: {due_date}")
+
+    return render_template('awerness.html')  # Redirect or render a response, modify as needed
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
