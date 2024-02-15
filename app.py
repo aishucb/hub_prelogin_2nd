@@ -201,7 +201,7 @@ def awerness_details(awerness_id):
             cursor = mysql_connection.cursor()
 
             # Fetch detailed data for a specific 'awerness_id'
-            query = f"SELECT assignment_id, category_id, description, due_date FROM user_awerness_submission where assignment_id = {awerness_id}"
+            query = f"SELECT * FROM user_awerness_submission where assignment_id= {awerness_id} ;"
             cursor.execute(query)
             awerness_details = cursor.fetchone()
 
