@@ -8,7 +8,12 @@ from datetime import datetime, timezone, timedelta
 from bs4 import BeautifulSoup
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = os.path.join(app.static_folder, 'uploads')  # Use an absolute path
-
+mysql_db_config = {
+    'host': '127.0.0.1',
+    'user': 'vongle',
+    'password': 'ashiv3377',
+    'database': 'osqacademy',
+}
 # Ensure the 'uploads' folder exists
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 @app.route('/')
@@ -159,26 +164,35 @@ def submit():
 def awerness_admin():
     return render_template('awerness.html')
 
+def get_grade_categories():
+    connection = mysql.connect(**mysql_db_config)
+    cursor = connection.cursor()
+
+    cursor.execute("SELECT id, courseid, fullname FROM mdl_grade_categories;")
+    data = cursor.fetchall()
+
+    cursor.close()
+    connection.close()
+
+    return data
+
+# Fetch data from mdl_grade_items based on category id
+def get_grade_items(category_id):
+    connection = mysql.connect(**mysql_db_config)
+    cursor = connection.cursor()
+
+    cursor.execute("SELECT id, courseid, categoryid, itemname FROM mdl_grade_items WHERE categoryid = %s;", (category_id,))
+    data = cursor.fetchall()
+
+    cursor.close()
+    connection.close()
+
+    return data
 @app.route('/add_awerness')
 def add_awerness():
-    mysql_db_config = {
-    'host': '127.0.0.1',
-    'user': 'vongle',
-    'password': 'ashiv3377',
-    'database': 'osqacademy',
-}
-    try:
-        mysql_connection = mysql.connector.connect(**mysql_db_config)
-        if mysql_connection.is_connected():
-            cursor = mysql_connection.cursor()
-            query = "select id,username from mdl_user where department='vongster';"
 
-            cursor.execute(query)
-            vongster_names = cursor.fetchall()
-    except mysql.connector.Error as err:
-        return f"Error: {err}"
-
-    return render_template('awerness_add.html',vongster_names=vongster_names)
+    categories = get_grade_categories()
+    return render_template('awerness_add.html',categories=categories)
 
 
 if __name__ == '__main__':

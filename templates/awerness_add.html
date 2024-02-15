@@ -2,43 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Awareness</title>
-    <style>
-        body
-        {
-            margin: 0;
-        }
-
-        #header {
-            height: 50px;
-            width: 100%;
-            background-color: #9F121E;
-            margin: 0px;
-        }
-    </style>
+    <title>Flask App</title>
 </head>
 <body>
-    <div id="header"></div>
-    <h1>Add Awareness</h1>
-
-    <form method="post" action="/submit_awerness">
-        <label for="vongster_dropdown">Select Vongster:</label>
-        <select id="vongster_dropdown" name="selected_vongster">
-            {% for vongster in vongster_names %}
-                <option value="{{ vongster[0] }}">{{ vongster[1] }}</option>
+    <h1>Grade Categories and Items</h1>
+    <form action="/get_grade_items" method="post">
+        <label for="category">Select Category:</label>
+        <select name="category_id" id="category">
+            {% for category in categories %}
+                <option value="{{ category[0] }}">{{ category[2] }}</option>
             {% endfor %}
         </select>
-
-        <br>
-
-        <label for="awareness_text">Enter Awareness Text:</label>
-        <input type="text" id="awareness_text" name="awareness_text" required>
-
-        <br>
-
         <button type="submit">Submit</button>
     </form>
+
+    {% if items %}
+        <h2>Grade Items</h2>
+        <ul>
+            {% for item in items %}
+                <li>{{ item[3] }} - Course ID: {{ item[1] }} - Item ID: {{ item[0] }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 </body>
 </html>
