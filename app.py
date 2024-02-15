@@ -201,6 +201,12 @@ def add_awerness():
     categories = get_grade_categories()
     return render_template('awerness_add.html',categories=categories)
 
+@app.route('/get_grade_items', methods=['POST'])
+def get_items():
+    selected_category_id = request.form.get('category_id')
+    items = get_grade_items(selected_category_id)
+    return render_template('items.html', items=items)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
