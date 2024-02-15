@@ -404,12 +404,12 @@ def submit_form_awerness_user():
             if mysql_connection.is_connected():
                 cursor = mysql_connection.cursor()
 
-                # Save the image to the 'uploads' folder
+             
                 image_filename = f"{datetime.now().strftime('%Y%m%d%H%M%S%f')}.png"
                 image_path = os.path.join(app.config['UPLOAD_FOLDER'], image_filename)
                 image.save(image_path)
 
-                # Insert data into the SQL table 'user_awerness_submission'
+               
                 insert_query = """
                     INSERT INTO user_awerness_submission (user_id, image_filename, text, editable)
                     VALUES (%s, %s, %s, %s);
@@ -427,7 +427,7 @@ def submit_form_awerness_user():
             cursor.close()
             mysql_connection.close()
 
-        return redirect(url_for('index'))
+        return redirect(url_for('awerness_user'))
 
     return render_template('index.html')
 
