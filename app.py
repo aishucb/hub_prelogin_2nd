@@ -365,7 +365,7 @@ def awerness_user():
     return render_template('awerness_user.html', awerness_data=awerness_data)
 
 @app.route('/awerness_details_user/<int:awerness_id>')
-def awerness_details(awerness_id):
+def awerness_details_user(awerness_id):
     try:
         # Establish MySQL connection
         mysql_connection = mysql.connector.connect(**mysql_db_config)
@@ -388,6 +388,8 @@ def awerness_details(awerness_id):
         mysql_connection.close()
 
     return render_template('awerness_details_user.html', awerness_details=awerness_details)
+
+
 @app.route('/submit_form_awerness_user', methods=['POST'])
 def submit_form_awerness_user():
     if request.method == 'POST':
