@@ -165,29 +165,36 @@ def awerness_admin():
     return render_template('awerness.html')
 
 def get_grade_categories():
-    connection = mysql.connect(**mysql_db_config)
+    connection = mysql.connector.connect(**mysql_db_config)
     cursor = connection.cursor()
 
-    cursor.execute("SELECT id, courseid, fullname FROM mdl_grade_categories;")
-    data = cursor.fetchall()
-
-    cursor.close()
-    connection.close()
-
-    return data
+    try:
+        cursor.execute("SELECT id, courseid, fullname FROM mdl_grade_categories;")
+        data = cursor.fetchall()
+        return data
+    except mysql.connector.Error as err:
+        print(f"Error fetching grade categories: {err}")
+        return []
+    finally:
+        cursor.close()
+        connection.close()
 
 # Fetch data from mdl_grade_items based on category id
 def get_grade_items(category_id):
-    connection = mysql.connect(**mysql_db_config)
+    connection = mysql.connector.connect(**mysql_db_config)
     cursor = connection.cursor()
 
-    cursor.execute("SELECT id, courseid, categoryid, itemname FROM mdl_grade_items WHERE categoryid = %s;", (category_id,))
-    data = cursor.fetchall()
+    try:
+        cursor.execute("SELECT id, courseid, categoryid, itemname FROM mdl_grade_items WHERE categoryid = %s;", (category_id,))
+        data = cursor.fetchall()
+        return data
+    except mysql.connector.Error as err:
+        print(f"Error fetching grade items: {err}")
+        return []
+    finally:
+        cursor.close()
+        connection.close()
 
-    cursor.close()
-    connection.close()
-
-    return data
 @app.route('/add_awerness')
 def add_awerness():
 
