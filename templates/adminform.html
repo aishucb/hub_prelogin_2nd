@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Form</title>
+</head>
+<style>
+    .container{
+        font-family: Arial, Helvetica, sans-serif;
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
+    }
+    .title{
+        font-family: Arial, Helvetica, sans-serif;
+        display: flex;
+        font-size: 48px;
+    }
+    .form-container{
+        font-family: Arial, Helvetica, sans-serif;
+        position: absolute;
+        width: 500px;
+        height: 500px;
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        margin-top: 100px;
+        border: solid 2px #000;
+        align-items: left;
+        border-radius: 15px;
+        background-color: rgba(255, 255, 255, 0.693) ;
+    }
+    .form-input{
+        font-family: Arial, Helvetica, sans-serif;
+        display: flex;
+        width: 470px;
+        height: 50px;
+        border: solid 0.5px #939393;
+        border-radius: 20px;
+        padding-left:20px ;
+        font-size: 20px;
+    }
+    .form-description{
+        font-family: Arial, Helvetica, sans-serif;
+        display: flex;
+        width: 470px;
+        height: 200px;
+        border-radius: 15px;
+        padding-top: 12px;
+        padding-left:20px ;
+        font-size: 20px;
+    }
+    .submit-btn{
+        display: flex;
+        position: relative;
+        width: 120px;
+        height: 50px;
+        left: 180px;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        border-radius: 12px;
+        font-size: 20px;
+        background-color: #2962ff;
+
+        color: #fff;
+    }
+</style>
+<body class="container">
+    <h1 class="title">Admin Panel</h1>
+    <div style="width: 1005.19px; height: 749.71px; left: -410.65px; top: 67.63px; position: absolute; transform: rotate(-57.82deg); transform-origin: 0 0; background: #E50000; border-radius: 36px"></div>
+    <div style="width: 1000px; height: 800px; right: -2190.65px; top: 387.63px; position: absolute; transform: rotate(145deg) skewX(25deg); transform-origin: 0 0; background: #E50000; border-radius: 45px"></div>
+    <form class="form-container" action="/submit_admin" method="POST" enctype="multipart/form-data">
+        
+        <input class="form-input" type="text" placeholder="Name" name="name" required><br>
+        <input class="form-input" type="text" placeholder="Title" name="title" required><br>
+        <textarea class="form-description" name="description" placeholder="Description" required></textarea><br>
+
+        <label style="font-size: 20px; margin-bottom: 15px;" for="image">Image:</label>
+        <input style="display: flex; position: relative;" type="file" name="image" accept="image/*" required><br>
+
+        <input class="submit-btn" type="submit" value="Upload">
+    </form>
+</body>
+</html>

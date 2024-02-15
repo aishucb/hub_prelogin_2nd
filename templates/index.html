@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Latest Events</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        a {
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .navbar {
+            background-color: #E50000;
+            overflow: hidden;
+            padding: 10px 20px;
+            color: white;
+        }
+
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .navbar img {
+            height: 40px;
+            /* Adjust the height of the logo as needed */
+            margin-right: 20px;
+            /* Adjust the margin as needed */
+        }
+
+        .navbar button {
+            float: right;
+            display: block;
+            color: white;
+            background-color: #E5B300;
+            /* Green color for the login button, you can change it */
+            border: none;
+            padding: 5px 20px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        /* Responsive styles */
+        @media screen and (max-width: 600px) {
+
+            .navbar a,
+            .navbar button {
+                float: none;
+                display: block;
+                text-align: left;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .navbar img {
+                margin-right: 0;
+                margin-bottom: 10px;
+                /* Adjust the margin as needed */
+            }
+        }
+
+        img {
+
+            border-radius: 5px;
+
+        }
+
+        #LatestEvents {
+            background-image: url("{{ url_for('static', filename='images/bgoflatestevent.png') }}");
+            background-size: cover;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        #LatestEvents .container {
+            font-family: Arial, sans-serif;
+            margin: 0 auto;
+            padding: 20px;
+
+        }
+
+        h1 {
+            font-size: 96px;
+            margin-bottom: 20px;
+            color: #E50000;
+            font-weight: bold;
+
+
+        }
+
+        #LatestEvents h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            padding-top: 20px;
+            font-weight: bold;
+        }
+
+        #LatestEvents p {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            padding: 20px;
+            color: #00000080;
+            font-weight: bold;
+
+        }
+
+        #LatestEvents .event {
+            background-color: #f2f2f2;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.1);
+
+        }
+
+        #LatestEvents .event h2 {
+            margin-top: 0;
+            color: #E50000;
+            font-size: 24px;
+        }
+
+        #LatestEvents .event.online {
+            background-color: #FFEEEE;
+            width: 600px;
+
+        }
+
+        #LatestEvents .event.offline {
+            background-color: #FFEEEE;
+            padding-top: 0px;
+            padding-left: 0px;
+            padding-right: 0px;
+
+
+        }
+
+        .inline-container {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        /*vaibhav's leaerboardd*/
+        .main_container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+
+        }
+
+        .left {
+            display: flex;
+            position: relative;
+        }
+
+        .right {
+            display: flex;
+            position: relative;
+        }
+
+        .leaderboard {
+            display: flex;
+            width: 635px;
+            height: 113.57px;
+            left: 50px;
+            top: 67px;
+            position: absolute;
+            background: white;
+            box-shadow: 0px 0px 72.27030181884766px 3.2263529300689697px rgba(0, 0, 0, 0.25);
+            border-radius: 25.81px;
+            backdrop-filter: blur(59.95px);
+        }
+
+        .sub_leaderboard_rank {
+            display: flex;
+            width: 21.95px;
+            height: 17.99px;
+            left: -0px;
+            top: 13.67px;
+            position: relative;
+            color: black;
+            font-size: 15.80px;
+            font-family: Inter;
+            font-weight: 700;
+            word-wrap: break-word
+        }
+
+        .sub_leaderboard_img {
+            display: flex;
+            width: 48.58px;
+            height: 48.58px;
+            left: 10px;
+            top: 0px;
+            position: relative;
+            border-radius: 9999px
+        }
+
+        .sub_leaderboard_name {
+            display: flex;
+            left: 102.20px;
+            top: 6.84px;
+            position: absolute;
+            color: black;
+            font-size: 21.23px;
+            font-family: Poppins;
+            font-weight: 600;
+            word-wrap: break-word
+        }
+
+        .sub_leaderboard_score {
+            display: flex;
+            width: 52.18px;
+            height: 14.75px;
+            left: 391.53px;
+            top: 15.47px;
+            position: absolute;
+            color: #A3A3A3;
+            font-size: 14.39px;
+            font-family: Inter;
+            font-weight: 700;
+            word-wrap: break-word
+        }
+
+        .sub_leaderboard_underline {
+            display: flex;
+            width: 417.44px;
+            height: 0px;
+            left: 35.99px;
+            top: 63.34px;
+            position: absolute;
+            border-top: 0.36px rgba(94.56, 89.20, 89.20, 0.54) solid;
+        }
+
+        .sub_leaderboard_container {
+            display: flex;
+            width: 1440px;
+            height: 967px;
+            left: -49px;
+            top: 450px;
+            z-index: 10;
+            position: absolute;
+        }
+
+        .big_red_circle {
+            width: 705px;
+            height: 681px;
+            left: 646px;
+            top: 1050px;
+            position: absolute;
+            background: rgba(229, 0, 0, 0.94);
+            border-radius: 9999px;
+        }
+
+        .sub_leaderboard_bg {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            width: 544px;
+            height: 653px;
+            left: 0px;
+            top: 412px;
+            position: absolute;
+            background: white;
+            box-shadow: 0px 0px 90.73945617675781px rgba(0, 0, 0, 0.25);
+            border-radius: 32.41px;
+            backdrop-filter: blur(75.27px)
+        }
+
+        .sub_leaderboard_tab {
+            display: flex;
+            position: relative;
+            top: 20px;
+            left: 35px;
+        }
+
+        .leaderboard_container {
+            width: 536px;
+            height: 550.41px;
+            left: 100px;
+            top: 282px;
+            position: absolute;
+            background: white;
+            box-shadow: 0px 0px 55.63670349121094px 2.483781337738037px rgba(0, 0, 0, 0.25);
+            border-radius: 19.87px;
+            backdrop-filter: blur(46.15px)
+        }
+
+        .special-mentions {
+            width: 635px;
+            height: 113.57px;
+            left: 825px;
+            top: 67px;
+            position: absolute;
+            background: white;
+            box-shadow: 0px 0px 72.27030181884766px 3.2263529300689697px rgba(0, 0, 0, 0.25);
+            border-radius: 25.81px;
+            backdrop-filter: blur(59.95px)
+        }
+
+        .special-mentions_container {
+            display: flex;
+            flex-direction: column;
+            gap: 75px;
+            position: absolute;
+            left: 851px;
+            top: 350px;
+        }
+
+        .special-mentions_card {
+            width: 574px;
+            height: 266px;
+            display: flex;
+            background: white;
+            box-shadow: 0px 2.2613930702209473px 42.401123046875px rgba(0, 0, 0, 0.25);
+            border-radius: 28.27px;
+        }
+
+        .special-mentions_title {
+            width: 303.80px;
+            height: 47.53px;
+            left: 225px;
+            top: 49.17px;
+            position: absolute;
+            text-align: center;
+            color: #E50000;
+            font-size: 32.24px;
+            font-family: Poppins;
+            font-weight: 700;
+            word-wrap: break-word;
+        }
+
+        .special-mentions_name {
+            width: 143.25px;
+            height: 26.07px;
+            left: 40.34px;
+            top: 0px;
+            position: absolute;
+            text-align: center;
+            color: #252525;
+            font-size: 19.79px;
+            font-family: Lato;
+            font-weight: 700;
+            word-wrap: break-word;
+        }
+
+        .special-mentions_community {
+            width: 223.98px;
+            height: 49.88px;
+            left: 0px;
+            top: 32.89px;
+            position: absolute;
+            text-align: center;
+            color: #E50000;
+            font-size: 13.57px;
+            font-family: Poppins;
+            font-weight: 700;
+            word-wrap: break-word;
+        }
+
+        .special-mentions_place {
+            width: 104.18px;
+            height: 16.44px;
+            left: 58px;
+            top: 62.89px;
+            position: absolute;
+            text-align: center;
+            color: #26235C;
+            font-size: 13px;
+            font-family: Lato;
+            font-weight: 900;
+            word-wrap: break-word;
+        }
+
+        .special-mentions_img {
+            width: 104.18px;
+            height: 105.36px;
+            left: 21.44px;
+            top: 29.77px;
+            position: absolute;
+            border-radius: 50%;
+            border: 1.13px #26235C solid;
+        }
+
+        .special-mentions_border {
+            width: 120.23px;
+            height: 120.56px;
+            left: 78.83px;
+            top: 170.60px;
+            border-radius: 50%;
+            position: absolute;
+            transform: rotate(-138.71deg);
+            transform-origin: 0 0;
+            border-left: 2.83px #E50000 solid;
+            border-bottom: 2.83px #E50000 solid;
+        }
+
+        footer {
+            background-color: #e50000;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .footer-main {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            margin: 1.5rem;
+        }
+
+        .footer-logo {
+            width: 20rem;
+        }
+
+        .footer-link {
+            text-decoration: none;
+            color: white;
+        }
+
+        .footer-info-div {
+            max-width: 350px;
+            margin: 0 auto;
+        }
+
+        .footer-info-icons {
+            display: flex;
+        }
+
+        .footer-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 1.5rem 0;
+        }
+
+        .footer-text-div {
+            max-width: 350px;
+            margin: 0 auto;
+            line-height: 30px;
+        }
+
+        .footer-line {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .footer-social-icons {
+            margin-top: 1rem;
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .footer-social-icon {
+            text-decoration: none;
+            color: white;
+        }
+
+        .footer-contact {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .footer-copyright {
+            display: flex;
+            justify-content: center;
+        }
+        /*photo gallery*/
+.gallery{
+      width: 100%;
+      color: #E50000;
+    }
+    .center-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh; /* This ensures that the container takes up the full height of the viewport */
+    }
+   
+    .title {
+      display: flex;
+      position: absolute;
+      width: auto;
+      font-family: Helvetica;
+      font-size: 60px;
+      font-style: normal;
+      font-weight: 600;
+      margin-top: 50px;
+      left: 33.5vw;
+    }
+
+    .gallery-container{
+      top: 200px;
+      align-items: center;
+      display: flex;
+      height: 200px;
+      margin: 0 auto;
+      max-width: 1000px;
+      position: relative;
+    }
+
+    .gallery-item{
+      height: 200px;
+      opacity: 0;
+      position: absolute;
+      transition: all 0.3s ease-in-out;
+      width: 300px;
+      z-index: 0;
+      border-radius: 35px;
+      background-size: contain;
+    }
+
+    .gallery-item-1{
+      left: 15%;
+      opacity: .4;
+      transform: translateX(-50%);
+    }
+    .gallery-item-2, .gallery-item-4{
+      height: 250px;
+      opacity: 0.8;
+      width: 350px;
+      z-index: 1;
+    }
+    .gallery-item-2{
+      left:30%;
+      transform: translateX(-50%);
+    }
+    .gallery-item-3{
+      box-shadow: -2px 5px 33px 6px rgba(0,0,0,0.35);
+      height: 300px;
+      opacity: 1;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 400px;
+      z-index: 2;
+    }
+    .gallery-item-4{
+      left:70%;
+      transform: translateX(-50%);
+    }
+    .gallery-item-5{
+      left: 85%;
+      opacity: .4;
+      transform: translateX(-50%);
+    }
+    .gallery-controls{
+      position: relative;
+      top: 280px;
+      display: flex;
+      justify-content: center;
+      margin: 25px 0;
+      height: 100px;
+    }
+
+    .gallery-controls button{
+      background-color: transparent;
+      border: 0;
+      cursor: pointer;
+      font-size: 30px;
+      margin: 0 50px;
+      padding: 0 12px;
+    }
+    .gallery-controls button:focus{
+      outline: none;
+    }
+    .gallery-controls-previous{
+      position: relative;
+    }
+    .gallery-controls-previous::before{
+      border: solid #000;
+      border-width: 0 5px 5px 0;
+      content: '';
+      display: inline-block;
+      height: 5px;
+      left: -30px;
+      padding: 10px;
+      position: absolute;
+      top: 25%;
+      transform: rotate(135deg) translateY(-50%);
+      transition: left 0.15s ease-in-out;
+      width: 5px;
+    }
+    .gallery-controls-previous:hover::before{
+      left: -40px;
+    }
+    .gallery-controls-next{
+      position: relative;
+    }
+    .gallery-controls-next::before{
+      border: solid #000;
+      border-width: 0 5px 5px 0;
+      content: '';
+      display: inline-block;
+      height: 5px;
+      right: -30px;
+      padding: 10px;
+      position: absolute;
+      top: 45% ;
+      transform: rotate(-45deg) translateY(-50%);
+      transition: right 0.15s ease-in-out;
+      width: 5px;
+    }
+    .gallery-controls-next:hover::before{
+      right: -40px;
+    }
+    .gallery-nav{
+      bottom: -15px;
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      padding: 0;
+      position: absolute;
+      width: 100%;
+    }
+    .gallery-nav li{
+      background: #ccc;
+      border-radius: 50%;
+      height: 10px;
+      margin: 0 16px;
+      width: 10px;
+    }
+    .gallery-nav li.gallery-item-selected{
+      background: #555;
+
+    }
+    @media only screen and (max-width: 767px) {
+        #LatestEvents {
+            padding: 20px;
+            background-color: #ffffff;
+            
+        }
+
+        #longnews,
+        #shortnews {
+            width: 100%;
+        }
+        #LatestEvents .event.online
+        {
+            width: 300px;
+
+        }
+        .event {
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 24px;
+        }
+
+        p {
+            font-size: 14px;
+        }
+        #LatestEventsbyaiswarya
+        {
+            border: 0px solid black;
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <div name="navbar_by_ash" id="navabar">
+        <div class="navbar">
+
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+
+            <a href="https://hub.vong.earth/login/index.php">
+                <button>LOGIN</button> </a>
+        </div>
+    </div>
+    <div name="headerbysanjana" >
+        <div id="carouselExampleIndicators"   class="carousel slide" data-ride="carousel" data-interval="3000" >
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="3"></li> <!-- New slide indicator -->
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="d-block h-100"  src="{{ url_for('static', filename='images/f2.png') }}"
+                        alt="First slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="{{ url_for('static', filename='images/f1.png') }}"
+                        alt="Second slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="{{ url_for('static', filename='images/f3.png') }}"
+                        alt="Third slide">
+                </div>
+                <!-- New carousel item (fourth slide) -->
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="{{ url_for('static', filename='images/f4.png') }}"
+                        alt="Fourth slide">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+    <div name="LatestEventsbyaiswarya" style="border: 1px solid black;margin-top: 100px;" id="LatestEventsbyaiswarya">
+        <div style="text-align: center;">
+            <h1 style="display: inline-block; margin-right: auto;">Latest Events</h1>
+            <a href="https://hub.vong.earth/calendar/view.php?view=month">
+                <img src="{{ url_for('static', filename='images/Search top.png') }}" alt="Your Image"
+                    style="display: inline-block; vertical-align: middle; margin-left: 30%;">
+            </a>
+        </div>
+        <a href="https://hub.vong.earth/calendar/view.php?view=upcoming&course=1">
+            <div id="LatestEvents">
+                {% set data_list = data|list %}
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col-md-6" id="longnews">
+                            <div class="event offline" style="height: 100%;margin-bottom: 20px;">
+                                {{ data_list[3][4]|safe }}
+                                <div
+                                    style="padding: 20px; display: flex; justify-content: space-between; align-items: center;">
+                                    <h2 style="font-weight: bold;font-size: 36px;">{{ data_list[3][1] }} </h2>
+                                    <p style="color: black; font-weight: bold;padding: 5px;">{{ data_list[3][3] }}</p>
+                                </div>
+
+
+                                <p>
+                                    {{ data_list[3][2] }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6" id="shortnews" style="text-align: center;">
+                            <div class="event online" style="display: flex; align-items: center; flex-direction: row;">
+                                {{ data_list[2][4]|safe }}
+                                <div style="margin-left: 10px;">
+                                    <h2 style="padding-left: 20px;">{{ data_list[2][1] }}</h2>
+
+                                    <p style="color: black; font-weight: bold;">{{ data_list[2][3] }}</p>
+                                </div>
+                            </div>
+                            <div class="event online" style="display: flex; align-items: center; flex-direction: row;">
+                                {{ data_list[2][4]|safe }}
+                                <div style="margin-left: 10px;">
+                                    <h2 style="padding-left: 20px;">{{ data_list[2][1] }}</h2>
+
+                                    <p style="color: black; font-weight: bold;">{{ data_list[2][3] }}</p>
+                                </div>
+                            </div>
+
+
+                            <div class="event online" style="display: flex; align-items: center; flex-direction: row;">
+                                {{ data_list[0][4]|safe }}
+                                <div style="margin-left: 10px;">
+                                    <h2 style="padding-left: 20px;">{{ data_list[0][1] }}</h2>
+
+                                    <p style="color: black; font-weight: bold;">{{ data_list[0][3] }}</p>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </a>
+    </div>
+    <iframe  id="myIframe" src="https://reports.vong.earth/lifelong.html" width="100%" title="Embedded Content" height="2000px"
+        frameborder="0" style="overflow: hidden;border: none;"></iframe>
+        <div name="photogallerybyvaibhav">
+            <div class="gallery">
+                <div class="title">PHOTO GALLERY</div>
+                <div class="gallery-container">
+                    <img class="gallery-item gallery-item-1" src="{{ url_for('static', filename='images/f1.png') }}" data-index="1">
+                    <img class="gallery-item gallery-item-2" src="{{ url_for('static', filename='images/f2.png') }}" data-index="2">
+                    <img class="gallery-item gallery-item-3" src="{{ url_for('static', filename='images/f3.png') }}" data-index="3">
+                    <img class="gallery-item gallery-item-4" src="{{ url_for('static', filename='images/f4.png') }}" data-index="4">
+                    <img class="gallery-item gallery-item-5" src="{{ url_for('static', filename='images/f3.png') }}" data-index="5">
+                  </div>
+                  <div class="gallery-controls"></div>
+            </div>
+        </div>
+    <footer style="font-family:'Poppins', sans-serif;margin-top: 300PX;">
+        <div class="footer-main">
+            <div class="footer-info">
+                <div class="footer-info-div">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="vonghub logo"
+                        class="footer-logo" />
+
+                    <hr style="border-color: #fff;" />
+
+
+                    <p>
+                        - G-9, Hemkunt Tower 98 Nehru Place <br />
+                        New Delhi 110019
+                    </p>
+                    <p></p>
+                    <a href="#" class="footer-link">- info@vong.earth</a>
+                </div>
+            </div>
+            <div class="footer-text">
+                <div class="footer-text-div">
+                    <hr style="border-color: #fff;" />
+
+                    <p>
+                        Let's transform the World together by taking small steps toward a
+                        greener, cleaner, and more sustainable future. Be a part of the
+                        VONG movement, and become the change-makers of tomorrow!
+                    </p>
+                    <hr style="border-color: #fff;" />
+
+                </div>
+            </div>
+        </div>
+        <div class="footer-line">
+            <hr />
+        </div>
+        <div class="footer-social-icons">
+            <a href="#" class="footer-social-icon"><ion-icon name="logo-facebook" size="large"></ion-icon></a>
+            <a href="#" class="footer-social-icon"><ion-icon name="logo-instagram" size="large"></ion-icon></a>
+            <a href="#" class="footer-social-icon"><ion-icon name="logo-twitter" size="large"></ion-icon></a>
+
+            <a href="#" class="footer-social-icon"><ion-icon name="logo-linkedin" size="large"></ion-icon></a>
+        </div>
+        <div class="footer-contact">
+            <p>Contact us</p>
+            <p>FAQs</p>
+        </div>
+        <div class="footer-copyright">
+            <p>Copyright © 2023 – VONG</p>
+        </div>
+    </footer>
+
+    <script>
+
+	window.onload = function() {
+        var iframe = document.getElementById('myIframe');
+        iframe.contentWindow.location.reload(true);
+    };
+
+        // Wait for the document to be fully loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get all img tags within the element with id="short-news"
+            var shortNewsImages = document.querySelectorAll("#shortnews img");
+            var longNewsImages = document.querySelectorAll("#longnews img");
+
+            // Loop through each image and set the height to 200px
+            shortNewsImages.forEach(function (img) {
+                img.style.width = "200px";
+                img.style.height = "188px";
+            });
+            longNewsImages.forEach(function (img) {
+                img.style.width = "400px";
+                img.style.height = "300px";
+                img.style.paddingLeft = "120px";
+            });
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script>
+        const galleryContainer = document.querySelector('.gallery-container')
+        const galleryControlsContainer = document.querySelector('.gallery-controls')
+        const galleryControls = ['previous', 'next']
+        const galleryItems = document.querySelectorAll('.gallery-item')
+      
+        class Carousel{
+    
+          constructor(container, items, controls){
+              this.carouselContainer = container;
+              this.carouselControls = controls;
+              this.carouselArray = [...items];
+          }
+    
+          updateGallery(){
+            this.carouselArray.forEach(el =>{
+              el.classList.remove('gallery-item-1')
+              el.classList.remove('gallery-item-2')
+              el.classList.remove('gallery-item-3')
+              el.classList.remove('gallery-item-4')
+              el.classList.remove('gallery-item-5')
+            })
+            this.carouselArray.slice(0,5).forEach((el,i)=>{
+              el.classList.add(`gallery-item-${i+1}`)
+            })
+          }
+          setCurrentState(direction){
+            if(direction.className == 'gallery-controls-previous'){
+              this.carouselArray.unshift(this.carouselArray.pop())
+            }else{
+              this.carouselArray.push(this.carouselArray.shift())
+            }
+            this.updateGallery()
+          }
+          setControls() {
+        this.carouselControls.forEach(control => {
+            const button = document.createElement('button');
+            button.className = `gallery-controls-${control}`;
+            button.innerHTML = control === 'previous' ? '&#x2190;' : '&#x2192;'; // Unicode left and right arrows
+            galleryControlsContainer.appendChild(button);
+        });
+    }
+    
+          useControls(){
+            const triggers = [...galleryControlsContainer.childNodes]
+            triggers.forEach(control=>{
+              control.addEventListener('click', e =>{
+                e.preventDefault()
+                this.setCurrentState(control)
+              });
+            });
+          }
+        }
+    
+        const exampleCarousel = new Carousel(galleryContainer, galleryItems, galleryControls)
+        exampleCarousel.setControls()
+        exampleCarousel.useControls()
+    
+    
+    </script>
+</body>
+
+</html>
