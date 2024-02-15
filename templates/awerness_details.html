@@ -14,10 +14,10 @@
             <p>ID: {{ entry[0] }}</p>
             <p>Category ID: {{ entry[1] }}</p>
             
-            <form method="POST" action="{{ url_for('update_mark', awerness_id=entry[0]) }}">
+            <form id="updateForm" data-awerness-id="{{ entry[0] }}">
                 <label for="new_mark">New Mark:</label>
                 <input type="number" name="new_mark" id="new_mark" value="{{ entry[11] }}" required>
-                <button type="submit">Update Mark</button>
+                <button type="button" onclick="updateMark()">Update Mark</button>
             </form>
 
         {% endfor %}
@@ -26,5 +26,32 @@
     {% endif %}
 
     <a href="{{ url_for('awerness_admin') }}">Back to Awerness Admin</a>
+
+    <script>
+        function updateMark() {
+            var awernessId = document.getElementById('updateForm').getAttribute('data-awerness-id');
+            var newMark = document.getElementById('new_mark').value;
+
+            fetch('/update_mark/' + awernessId, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'new_mark=' + newMark,
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Optionally, you can update the UI to reflect the change
+                    alert('Mark updated successfully!');
+                } else {
+                    alert('Error updating mark');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error updating mark');
+            });
+        }
+    </script>
 </body>
 </html>
