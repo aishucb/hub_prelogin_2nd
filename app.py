@@ -237,19 +237,47 @@ def get_items():
 @app.route('/submit_admin_awerness', methods=['POST'])
 def submit_admin_awerness():
     if request.method == 'POST':
-        category_id = request.form.get('category_id')
-        grade = request.form.get('grade')  # Assuming the second dropdown has the name 'grade'
+        course_id = request.form.get('category_id')
+        category_id = request.form.get('grade')  # Assuming the second dropdown has the name 'grade'
         description = request.form.get('description')
         due_date = request.form.get('due_date')
 
-        # Now you can do something with the data, e.g., save it to a database
-        # For now, let's print the data
-        print(f"Category ID: {category_id}")
-        print(f"Grade: {grade}")
-        print(f"Description: {description}")
-        print(f"Due Date: {due_date}")
+        try:
+            # Establish MySQL connection
+            mysql_db_config = {
+                'host': '127.0.0.1',
+                'user': 'vongle',
+                'password': 'ashiv3377',
+                'database': 'osqacademy',
+            }
+            mysql_connection = mysql.connector.connect(**mysql_db_config)
 
-    return render_template('awerness.html')  # Redirect or render a response, modify as needed
+            if mysql_connection.is_connected():
+                cursor = mysql_connection.cursor()
+
+                # Execute the INSERT query
+                insert_query = """
+                    INSERT INTO mdl_grade_categories 
+                    (courseid, parent, depth, path, fullname, aggregation, keephigh, droplow, 
+                     aggregateonlygraded, aggregateoutcomes, timecreated, timemodified, hidden)
+                    VALUES (%s, NULL, 0, '/1/', %s, 1, 0, 0, 0, 0, UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), 0)
+                """
+                cursor.execute(insert_query, (course_id, description))
+
+                # Commit the changes
+                mysql_connection.commit()
+
+                print("Data successfully inserted into mdl_grade_categories table.")
+
+        except mysql.connector.Error as err:
+            print(f"Error: {err}")
+        finally:
+            # Close the cursor and connection
+            cursor.close()
+            mysql_connection.close()
+
+    return render_template('awerness.html') 
+
 
 if __name__ == '__main__':
     app.run(debug=True)
