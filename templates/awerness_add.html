@@ -9,19 +9,21 @@
 </form>
 
 {% if items %}
-    <form class="form-container" action="/submit_admin_awerness" method="POST" enctype="multipart/form-data">
-        <p>Selected Category: {{ category_name }}</p>
-        <select name="grade" id="grade">
-            {% for item in items %}
-                <option value="{{ item[0] }}">{{ item[2] }}</option>
-            {% endfor %}
-        </select>
+<form action="/submit_admin_awerness" method="POST">
+    <input type="hidden" name="category_id" value="{{ category_id }}">
+    <p>Selected Category: {{ category_name }}</p>
+    <select name="grade" id="grade">
+        {% for item in items %}
+            <option value="{{ item[0] }}">{{ item[2] }}</option>
+        {% endfor %}
+    </select>
 
-        <label for="description">Description:</label>
-        <textarea name="description" id="description" required></textarea><br>
+    <label for="description">Description:</label>
+    <textarea name="description" id="description" required></textarea><br>
 
-        <label for="due_date">Due Date:</label>
-        <input type="date" name="due_date" id="due_date" required><br>
-        <button type="submit">Submit</button>
-    </form>
+    <label for="due_date">Due Date:</label>
+    <input type="date" name="due_date" id="due_date" required><br>
+    <button type="submit">Submit</button>
+</form>
+
 {% endif %}
