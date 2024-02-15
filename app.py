@@ -393,28 +393,33 @@ def awerness_details_user(awerness_id):
 @app.route('/submit_form_awerness_user', methods=['POST'])
 def submit_form_awerness_user():
     if request.method == 'POST':
-        user_id = request.form['userid']
-        image = request.files['image']
-        text = request.form['text']
+        assignment_id = request.form.get('assignment_id')
+        course_id = request.form.get('course_id')
+        category_id = request.form.get('category_id')
+        description = request.form.get('description')
+        due_date = request.form.get('due_date')
+        user_id = request.form.get('userid')
+        image = request.files.get('image')
+        text = request.form.get('text')
         editable = 'editable' in request.form
 
         try:
             mysql_connection = mysql.connector.connect(**mysql_db_config)
-            
+
             if mysql_connection.is_connected():
                 cursor = mysql_connection.cursor()
 
-             
+                # Save the image to the 'uploads' folder
                 image_filename = f"{datetime.now().strftime('%Y%m%d%H%M%S%f')}.png"
                 image_path = os.path.join(app.config['UPLOAD_FOLDER'], image_filename)
                 image.save(image_path)
 
-               
+                # Insert data into the SQL table 'user_awerness_submission'
                 insert_query = """
-                    INSERT INTO user_awerness_submission (user_id, image_filename, text, editable)
-                    VALUES (%s, %s, %s, %s);
+                    INSERT INTO user_awerness_submission (assignment_id, course_id, category_id, description, due_date, user_id, image_filename, text, editable)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);
                 """
-                cursor.execute(insert_query, (user_id, image_filename, text, editable))
+                cursor.execute(insert_query, (assignment_id, course_id, category_id, description, due_date, user_id, image_filename, text, editable))
 
                 mysql_connection.commit()
 
@@ -422,12 +427,13 @@ def submit_form_awerness_user():
 
         except mysql.connector.Error as err:
             print(f"Error: {err}")
+            return render_template('error.html', error_message=str(err)), 500
         finally:
             # Close the cursor and connection
             cursor.close()
             mysql_connection.close()
 
-        return redirect(url_for('awerness_user'))
+        return redirect(url_for('awerness_admin'))
 
     return render_template('index.html')
 
