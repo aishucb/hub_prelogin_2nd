@@ -195,11 +195,16 @@ def get_grade_items(category_id):
         cursor.close()
         connection.close()
 
-@app.route('/add_awerness')
+@app.route('/add_awerness', methods=['GET', 'POST'])
 def add_awerness():
+    if request.method == 'POST':
+        selected_category_id = request.form.get('category_id')
+        items = get_grade_items(selected_category_id)
+        return render_template('awerness_add.html', categories=get_grade_categories(), selected_category_id=selected_category_id, items=items)
 
     categories = get_grade_categories()
-    return render_template('awerness_add.html',categories=categories)
+    return render_template('awerness_add.html', categories=categories)
+
 
 @app.route('/get_grade_items', methods=['POST'])
 def get_items():
