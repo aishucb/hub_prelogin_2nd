@@ -363,7 +363,7 @@ VALUES (%s, %s, %s, %s);
             cursor.close()
             mysql_connection.close()
 
-    return render_template('awerness.html') 
+    return redirect(url_for('/awerness_admin'))
 
 #user panel for awerness
 
