@@ -75,37 +75,33 @@
 </head>
 
 <body>
-    <div id="header">
-
-    </div>
+    <div id="header"></div>
 
     {% if awerness_details %}
-    {% for entry in awerness_details %}
     <div class="details-container">
-
+        {% for entry in awerness_details %}
         <p>ID: {{ entry[0] }}</p>
         <p>Category ID: {{ entry[1] }}</p>
         <p>User name: {{ entry[6] }}</p>
         <img src="{{ url_for('static', filename='uploads/' + entry[7]) }}" alt="Logo">
         <p>Caption: {{ entry[8] }}</p>
 
-        <form id="updateForm" data-awerness-id="{{ entry[0] }}">
+        <form id="updateForm_{{ entry[0] }}" data-awerness-id="{{ entry[0] }}">
             <label for="new_mark">New Mark:</label>
-            <input type="number" name="new_mark" id="new_mark" value="{{ entry[11] }}" required>
+            <input type="number" name="new_mark" id="new_mark_{{ entry[0] }}" value="{{ entry[11] }}">
             <button type="button" onclick="updateMark('{{ entry[0] }}')">Update Mark</button>
         </form>
-
-
+        {% endfor %}
     </div>
-    {% endfor %}
     {% else %}
     <p>No details found.</p>
     {% endif %}
-    <br>
+    
     <a href="{{ url_for('awerness_admin') }}">Back to Awareness Admin</a>
+
     <script>
         function updateMark(awernessId) {
-            var newMark = document.getElementById('new_mark').value;
+            var newMark = document.getElementById('new_mark_' + awernessId).value;
 
             fetch('/update_mark/' + awernessId, {
                 method: 'POST',
