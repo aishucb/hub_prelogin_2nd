@@ -1,29 +1,102 @@
-<form action="/get_grade_items" method="post">
-    <label for="category">Select Category:</label>
-    <select name="category_id" id="category">
-        {% for category in categories %}
-            <option value="{{ category[0] }}" {% if category_id == category[0] %}selected{% endif %}>{{ category[1] }}</option>
-        {% endfor %}
-    </select>
-    <button type="submit">Submit</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
 
-{% if items %}
-<form action="/submit_admin_awerness" method="POST">
-    <input type="hidden" name="category_id" value="{{ category_id }}">
-    <p>Selected Category: {{ category_name }}</p>
-    <select name="grade" id="grade">
-        {% for item in items %}
-            <option value="{{ item[0] }}">{{ item[2] }}</option>
-        {% endfor %}
-    </select>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Assignment</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
 
-    <label for="description">Description:</label>
-    <textarea name="description" id="description" required></textarea><br>
+        #header {
+            height: 50px;
+            width: 100%;
+            background-color: #9F121E;
+            color: #fff;
+            text-align: center;
+            line-height: 50px;
+            font-size: 1.2em;
+        }
 
-    <label for="due_date">Due Date:</label>
-    <input type="date" name="due_date" id="due_date" required><br>
-    <button type="submit">Submit</button>
-</form>
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-{% endif %}
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        select,
+        textarea,
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #9F121E;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #751017;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header">
+       
+    </div>
+    <div class="container">
+        <form action="/get_grade_items" method="post">
+            <label for="category">Select Category:</label>
+            <select name="category_id" id="category">
+                {% for category in categories %}
+                <option value="{{ category[0] }}" {% if category_id==category[0] %}selected{% endif %}>{{ category[1] }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Submit</button>
+        </form>
+
+        {% if items %}
+        <form action="/submit_admin_awarness" method="POST">
+            <input type="hidden" name="category_id" value="{{ category_id }}">
+            <p>Selected Category: {{ category_name }}</p>
+            <label for="grade">Grade:</label>
+            <select name="grade" id="grade">
+                {% for item in items %}
+                <option value="{{ item[0] }}">{{ item[2] }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="description">Description:</label>
+            <textarea name="description" id="description" required></textarea><br>
+
+            <label for="due_date">Due Date:</label>
+            <input type="date" name="due_date" id="due_date" required><br>
+            <button type="submit">Submit</button>
+        </form>
+        {% endif %}
+    </div>
+</body>
+
+</html>

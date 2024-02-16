@@ -1,58 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Awerness Details</title>
+    <title>Awareness Details</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        #header {
+            height: 50px;
+            width: 100%;
+            background-color: #9F121E;
+            color: #fff;
+            text-align: center;
+            line-height: 50px;
+            font-size: 1.2em;
+        }
+
+        .details-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        form {
+            margin-top: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #9F121E;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #720b14;
+        }
+
+        a {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            color: #9F121E;
+            text-decoration: none;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Awerness Details</h1>
+    <div id="header">
+
+    </div>
 
     {% if awerness_details %}
-        {% for entry in awerness_details %}
-            <p>ID: {{ entry[0] }}</p>
-            <p>Category ID: {{ entry[1] }}</p>
-            
-            <form id="updateForm" data-awerness-id="{{ entry[0] }}">
+    {% for entry in awerness_details %}
+    <div class="details-container">
 
-                <label for="new_mark">New Mark:</label>
-                <input type="number" name="new_mark" id="new_mark" value="{{ entry[11] }}" required>
-                <b<button type="button" onclick="updateMark('{{ entry[0] }}')">Update Mark</button>
-            </form>
+        <p>ID: {{ entry[0] }}</p>
+        <p>Category ID: {{ entry[1] }}</p>
+        <p>User name: {{ entry[6] }}</p>
+        <img src="{{ url_for('static', filename='uploads/' + entry[7]) }}" alt="Logo">
+        <p>Caption: {{ entry[8] }}</p>
 
-        {% endfor %}
+        <form id="updateForm" data-awerness-id="{{ entry[0] }}">
+            <label for="new_mark">New Mark:</label>
+            <input type="number" name="new_mark" id="new_mark" value="{{ entry[11] }}" required>
+            <button type="button" onclick="updateMark('{{ entry[0] }}')">Update Mark</button>
+        </form>
+
+
+    </div>
+    {% endfor %}
     {% else %}
-        <p>No details found.</p>
+    <p>No details found.</p>
     {% endif %}
-
-    <a href="{{ url_for('awerness_admin') }}">Back to Awerness Admin</a>
-
+    <br>
+    <a href="{{ url_for('awerness_admin') }}">Back to Awareness Admin</a>
     <script>
         function updateMark(awernessId) {
-    var newMark = document.getElementById('new_mark').value;
+            var newMark = document.getElementById('new_mark').value;
 
-    fetch('/update_mark/' + awernessId, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: 'new_mark=' + newMark,
-    })
-    .then(response => {
-        if (response.ok) {
-            // Optionally, you can update the UI to reflect the change
-            alert('Mark updated successfully!');
-        } else {
-            alert('Error updating mark');
+            fetch('/update_mark/' + awernessId, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'new_mark=' + newMark,
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // Optionally, you can update the UI to reflect the change
+                        alert('Mark updated successfully!');
+                    } else {
+                        alert('Error updating mark');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error updating mark');
+                });
         }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Error updating mark');
-    });
-}
-
     </script>
 </body>
+
 </html>

@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flask Template Example</title>
+    <title>AWERNESS ADMIN</title>
     <style>
-        body
-        {
+        body {
             margin: 0;
         }
 
@@ -17,35 +17,60 @@
             background-color: #9F121E;
             margin: 0px;
         }
+
         #add {
             height: 50px;
             width: 100%;
             background-color: #ffffff;
             margin: 0px;
         }
-        #add button{
+
+        #add button {
             position: Absolute;
             right: 20px;
             margin-top: 20px;
-            padding:10px;
+            padding: 10px;
             color: #ffffff;
             background-color: #9F121E;
             border: 0px;
         }
 
+        .card {
+            margin: 50px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            transition: box-shadow 0.3s ease, background-color 0.5s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            background-color: #9F121E;
+            color: #ffffff;
+        }
+
+        a {
+            color: #000000;
+            text-decoration: none;
+        }
     </style>
 </head>
+
 <body>
     <div id="header"></div>
     <div id="add"><button id="myButton">Add Assignment</button></div>
 
     {% for data in awerness_data %}
+    <a href="{{ url_for('awerness_details', awerness_id=data[0]) }}">
         <div class="card">
+
             <h2>{{ data[1] }} - {{ data[2] }}</h2>
             <p>{{ data[3] }}</p>
             <p>Due Date: {{ data[4] }}</p>
-            <a href="{{ url_for('awerness_details', awerness_id=data[0]) }}">Details</a>
+            Details
         </div>
+    </a>
     {% endfor %}
     <script type="text/javascript">
         document.getElementById("myButton").onclick = function () {
@@ -53,4 +78,5 @@
         };
     </script>
 </body>
+
 </html>
