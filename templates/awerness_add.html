@@ -8,7 +8,7 @@
     <style>
         body {
             margin: 0;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
         #header {
@@ -78,7 +78,7 @@
         </form>
 
         {% if items %}
-        <form action="/submit_admin_awarness" method="POST">
+        <form action="/submit_admin_awerness" method="POST">
             <input type="hidden" name="category_id" value="{{ category_id }}">
             <p>Selected Category: {{ category_name }}</p>
             <label for="grade">Grade:</label>

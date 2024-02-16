@@ -5,8 +5,92 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Awareness Details Form</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        #header {
+            height: 50px;
+            width: 100%;
+            background-color: #9F121E;
+            color: #fff;
+            text-align: center;
+            line-height: 50px;
+            font-size: 1.2em;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            color: #555;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        input[type="checkbox"] {
+            margin-top: 5px;
+            margin-bottom: 15px;
+        }
+
+        input[type="submit"] {
+            background-color: #9F121E;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #751118;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #9F121E;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
+    <div id="header"></div>
     <h1>Awareness Details Form</h1>
 
     <form action="/submit_form_awerness_user" method="post" enctype="multipart/form-data">
@@ -14,23 +98,18 @@
         {% if awerness_details %}
             <label for="id">ID:</label>
             <input type="text" value="{{ awerness_details[0] }}" name="id" readonly>
-            <br>
 
             <label for="category_id">Category ID:</label>
             <input type="text" value="{{ awerness_details[1] }}" name="category_id" readonly>
-            <br>
 
             <label for="grade">Grade:</label>
             <input type="text" value="{{ awerness_details[2] }}" name="grade" readonly>
-            <br>
 
             <label for="description">Description:</label>
             <textarea id="description" name="description" rows="4" cols="50" readonly>{{ awerness_details[3] }}</textarea>
-            <br>
 
             <label for="due_date">Due Date:</label>
             <input type="text" value="{{ awerness_details[4] }}" name="due_date" readonly>
-            <br>
         {% else %}
             <p>No details found.</p>
         {% endif %}
@@ -39,22 +118,18 @@
         <label for="userid">User ID:</label>
         <select id="userid" name="userid">
             {% for user in users %}
-            <option value="{{ user[1] }}">{{ user[1] }}</option>
-        {% endfor %}
+                <option value="{{ user[1] }}">{{ user[1] }}</option>
+            {% endfor %}
         </select>
-        <br>
 
         <label for="image">Image:</label>
         <input type="file" id="image" name="image" accept="image/*">
-        <br>
 
         <label for="text">Text:</label>
         <textarea id="text" name="text" rows="4" cols="50"></textarea>
-        <br>
 
         <label for="editable">Editable:</label>
-        <input type="checkbox" id="editable" name="editable" value="TRUE" style="display: none;">
-        <br>
+        <input type="checkbox" id="editable" name="editable" value="TRUE">
 
         <input type="submit" value="Submit">
     </form>

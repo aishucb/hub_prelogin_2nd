@@ -6,48 +6,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flask Template Example</title>
     <style>
-        body
-        {
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        #header, #add {
+            height: 50px;
+            width: 100%;
+            background-color: #9F121E;
             margin: 0;
         }
 
-        #header {
-            height: 50px;
-            width: 100%;
-            background-color: #9F121E;
-            margin: 0px;
-        }
-        #add {
-            height: 50px;
-            width: 100%;
-            background-color: #ffffff;
-            margin: 0px;
-        }
-        #add button{
-            position: Absolute;
+        #add button {
+            position: absolute;
             right: 20px;
-            margin-top: 20px;
-            padding:10px;
+            top: 15px;
+            padding: 10px;
             color: #ffffff;
             background-color: #9F121E;
-            border: 0px;
+            border: 0;
+            cursor: pointer;
         }
 
+        .card {
+            background-color: #ffffff;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .card a {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #9F121E;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .card a:hover {
+            background-color: #751118;
+        }
     </style>
 </head>
 <body>
     <div id="header"></div>
 
-
     {% for data in awerness_data %}
         <div class="card">
-            <h2>{{ data[1] }} - {{ data[2] }}</h2>
-            <p>{{ data[3] }}</p>
+            <h1>{{ data[3] }}</h1>
             <p>Due Date: {{ data[4] }}</p>
             <a href="{{ url_for('awerness_details_user', awerness_id=data[0]) }}">Details</a>
         </div>
-    {% endfor %}
-
-    </script>
+    {% endfor}
 </body>
 </html>
