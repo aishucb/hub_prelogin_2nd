@@ -97,9 +97,9 @@
             <label for="new_mark">New Mark:</label>
             <input type="number" name="new_mark" id="new_mark_{{ entry[0] }}" value="{{ entry[11] }}">
             <button type="button" onclick="updateMark('{{ entry[0] }}')">Update Score</button>
-            {{if entry[9]== TRUE}}
+            {{% if entry[9]== TRUE %}}
             <button type="button" onclick="post_post('{{ entry[0] }}')">Schedule to post</button>
-            {{endif}}
+            {{% endif %}}
         </form>
     </div>
         {% endfor %}
