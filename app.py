@@ -390,6 +390,7 @@ def awerness_user():
             query = "SELECT id, category_id, grade, description, due_date FROM awerness;"
             cursor.execute(query)
             awerness_data = cursor.fetchall()
+            awerness_data = awerness_data[::-1]
             
 
 

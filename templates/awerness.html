@@ -54,11 +54,18 @@
             color: #000000;
             text-decoration: none;
         }
+        img {
+                margin-right: 0;
+                margin-bottom: 10px;
+                /* Adjust the margin as needed */
+            }
     </style>
 </head>
 
 <body>
-    <div id="header"></div>
+    <div id="header">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+    </div>
     <div id="add"><button id="myButton">Add Assignment</button></div>
 
     {% for data in awerness_data %}
@@ -67,7 +74,7 @@
 
             <h1>{{ data[3] }}</h1>
             <p>Due Date: {{ data[4] }}</p>
-            Details
+       
         </div>
     </a>
     {% endfor %}
