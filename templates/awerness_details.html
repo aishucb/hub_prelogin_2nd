@@ -84,8 +84,9 @@
     <div id="header"> <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo"></div>
 
     {% if awerness_details %}
-    <div class="details-container">
+    
         {% for entry in awerness_details %}
+        <div class="details-container">
         <p>ID: {{ entry[0] }}</p>
         <p>Category ID: {{ entry[1] }}</p>
         <p>User name: {{ entry[6] }}</p>
@@ -95,10 +96,14 @@
         <form id="updateForm_{{ entry[0] }}" data-awerness-id="{{ entry[0] }}">
             <label for="new_mark">New Mark:</label>
             <input type="number" name="new_mark" id="new_mark_{{ entry[0] }}" value="{{ entry[11] }}">
-            <button type="button" onclick="updateMark('{{ entry[0] }}')">Update Mark</button>
+            <button type="button" onclick="updateMark('{{ entry[0] }}')">Update Score</button>
+            {{if entry[9]== TRUE}}
+            <button type="button" onclick="post_post('{{ entry[0] }}')">Schedule to post</button>
+            {{endif}}
         </form>
-        {% endfor %}
     </div>
+        {% endfor %}
+
     {% else %}
     <p>No details found.</p>
     {% endif %}
@@ -115,6 +120,28 @@
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 body: 'new_mark=' + newMark,
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // Optionally, you can update the UI to reflect the change
+                        alert('Mark updated successfully!');
+                    } else {
+                        alert('Error updating mark');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error updating mark');
+                });
+        }
+        function post_post(awernessId) {
+
+            fetch('/post_tweet/' + awernessId, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                
             })
                 .then(response => {
                     if (response.ok) {
