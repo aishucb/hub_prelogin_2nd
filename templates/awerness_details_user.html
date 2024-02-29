@@ -214,8 +214,7 @@ body::before {
             </div>
         </nav>
     </header>
-    <form action="/submit_form_awerness_user" method="post" enctype="multipart/form-data"></form>
-    <main>
+    <form action="/submit_form_awerness_user" method="post" enctype="multipart/form-data">
         <div style="display: none;">
             {% if awerness_details %}
             <label for="id">ID:</label>
@@ -232,46 +231,48 @@ body::before {
 
             <label for="due_date">Due Date:</label>
             <input type="text" value="{{ awerness_details[4] }}" name="due_date" readonly>
-        {% else %}
-            <p>No details found.</p>
-        {% endif %}</div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="profile-box">
-                    <img src="https://via.placeholder.com/150" alt="Profile">
-                    <select id="userid" name="userid">
-                    {% for user in users %}
-                    <h4><option value="{{ user[1] }}">{{ user[1] }}</option></h4>
-                    {% endfor %}
-                </select>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="tweet-box">
-                    <div class="close-button">
-                        <i class="fas fa-times"></i>
-                    </div>
-                    <div class="whats-happening-image">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnvYK9zxFoy-PW7kK5fj7CIoMQz5U-fJK3bg&usqp=CAU" alt="What's happening image">
-                    </div>
-                    <textarea placeholder="What's happening?" id="text" name="text"></textarea>
-                    <div class="tweet-actions">
-                        <label for="image" class="file-input-label">
-                            <i class="fas fa-image"></i> 
-                        </label>
-                        <input type="file" id="image" name="image" accept="image/*" style="display: none;">
-                        <i class="fas fa-poll"></i>
-                        <i class="fas fa-location-arrow"></i>
-                        <i class="fas fa-smile"></i>
-                        <input type="checkbox" id="editable" name="editable" value="TRUE" style="display: none;">
-                       
-                        <input type="submit"   value="Tweet">
-                    </div>
-                </div>
-            </div>
+            {% else %}
+                <p>No details found.</p>
+            {% endif %}
         </div>
-    </main>
-</form>
+
+        <main>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="profile-box">
+                        <img src="https://via.placeholder.com/150" alt="Profile">
+                        <select id="userid" name="userid">
+                            {% for user in users %}
+                                <option value="{{ user[1] }}">{{ user[1] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="tweet-box">
+                        <div class="close-button">
+                            <i class="fas fa-times"></i>
+                        </div>
+                        <div class="whats-happening-image">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnvYK9zxFoy-PW7kK5fj7CIoMQz5U-fJK3bg&usqp=CAU" alt="What's happening image">
+                        </div>
+                        <textarea placeholder="What's happening?" id="text" name="text"></textarea>
+                        <div class="tweet-actions">
+                            <label for="image" class="file-input-label">
+                                <i class="fas fa-image"></i>
+                            </label>
+                            <input type="file" id="image" name="image" accept="image/*" style="display: none;">
+                            <i class="fas fa-poll"></i>
+                            <i class="fas fa-location-arrow"></i>
+                            <i class="fas fa-smile"></i>
+                            <input type="checkbox" id="editable" name="editable" value="TRUE" style="display: none;">
+                            <input type="submit" value="Tweet">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </form>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
