@@ -239,9 +239,11 @@ body::before {
             <div class="col-md-6">
                 <div class="profile-box">
                     <img src="https://via.placeholder.com/150" alt="Profile">
+                    <select id="userid" name="userid">
                     {% for user in users %}
                     <h4><option value="{{ user[1] }}">{{ user[1] }}</option></h4>
                     {% endfor %}
+                </select>
                 </div>
             </div>
             <div class="col-md-6">

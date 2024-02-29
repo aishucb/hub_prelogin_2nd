@@ -2,222 +2,106 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="posting_page.css">
-    <title>Twitter Interface</title>
+    <title>Awareness Details Form</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <style>
         body {
-    background-image: url('https://images.firstpost.com/wp-content/uploads/2019/01/twitter-new-UI-1.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    color: #ffffff; /* Set default text color to white */
-}
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
 
-/* Navbar styles */
-.navbar-nav .nav-link {
-    color: #ffffff !important; /* Use !important to override any conflicting styles */
-}
+        #header {
+            height: 50px;
+            width: 100%;
+            background-color: #9F121E;
+            color: #fff;
+            text-align: center;
+            line-height: 50px;
+            font-size: 1.2em;
+        }
 
-.nav-link:hover {
-    color: #1DA1F2 !important;
-}
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
 
-/* Headers and message styles */
-h3, h4, .tweet-box textarea, .tweet-actions a {
-    color: #ffffff !important;
-}
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-.navbar-brand {
-    font-size: 20px;
-}
+        label {
+            display: block;
+            margin-top: 15px;
+            color: #555;
+        }
 
-.navbar-toggler {
-    border: none;
-}
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
 
-.navbar-collapse {
-    flex-direction: row;
-}
+        textarea {
+            resize: vertical;
+        }
 
-.navbar-nav {
-    display: flex;
-    align-items: center;
-    width: 100%;
-}
+        input[type="checkbox"] {
+            margin-top: 5px;
+            margin-bottom: 15px;
+        }
 
-.nav-item {
-    margin: 0 10px;
-}
+        input[type="submit"] {
+            background-color: #9F121E;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
 
-.nav-link {
-    color: #ffffff;
-    text-decoration: none;
-}
+        input[type="submit"]:hover {
+            background-color: #751118;
+        }
 
-.nav-link:hover {
-    color: #1DA1F2;
-}
-
-.tweet-box {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    background-color: rgba(29, 161, 242, 0.9);
-    color: #ffffff;
-    border-radius: 25px;
-    padding: 20px;
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto;
-    border: 2px solid #ffffff; /* Set the border color to black */
-}
-
-.tweet-box textarea {
-    border: none;
-    outline: none;
-    resize: none;
-    background-color: #1DA1F2;
-    color: #ffffff;
-    padding: 10px;
-    border-radius: 25px;
-    width: 100%;
-    height: 100px;
-}
-
-.tweet-actions {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 10px;
-}
-
-.tweet-actions i {
-    font-size: 20px;
-    margin: 0 5px;
-}
-
-.tweet-button {
-    position: absolute;
-    right: 20px;
-    bottom: 20px;
-    background-color: #14171A;
-    color: #ffffff;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 10px 20px;
-    border-radius: 25px;
-}
-
-.profile-box {
-    text-align: center;
-    padding: 20px;
-    background-color: rgba(44, 47, 51, 0.7); /* Adjusted background color for better visibility */
-    color: #ffffff;
-    border-radius: 25px;
-    margin: 0 auto;
-    width: 100%;
-    max-width: 400px;
-}
-
-.profile-box img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-body::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: inherit;
-    filter: blur(5px); /* Adjust the blur value as needed */
-    z-index: -1;
-}
-
-.whats-happening-image {
-    margin-bottom: 10px;
-}
-
-.whats-happening-image img {
-    width: 50px; /* Set the desired width for the logo */
-    height: auto; /* Maintain aspect ratio */
-    border-radius: 15px;
-}
-
-.close-button {
-    position: absolute;
-    top: 20px;
-    right: 30px; /* Adjusted from 10px to 50px */
-    cursor: pointer;
-}
-
-.close-button i {
-    font-size: 20px;
-    color: #ffffff;
-}
-/* Add this style to your existing styles */
-.file-input-label {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #9f121e00;
-    color: #fff;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-/* Style for hiding the original file input */
-#image {
-    display: none;
-}
-
-
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #9F121E;
+            text-decoration: none;
+        }
+        img {
+                margin-right: 0;
+                margin-bottom: 10px;
+                height: 50px;
+                /* Adjust the margin as needed */
+            }
     </style>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-twitter">
-            <a class="navbar-brand" href="#"><i class="fab fa-twitter"></i></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Explore</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Notifications</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Messages</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">More</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-    <form action="/submit_form_awerness_user" method="post" enctype="multipart/form-data"></form>
-    <main>
-        <div style="display: none;">
-            {% if awerness_details %}
+    <div id="header"> <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo"></div>
+    <h1>Awareness Details Form</h1>
+
+    <form action="/submit_form_awerness_user" method="post" enctype="multipart/form-data">
+        <!-- Display awareness details if available -->
+        {% if awerness_details %}
             <label for="id">ID:</label>
             <input type="text" value="{{ awerness_details[0] }}" name="id" readonly>
 
@@ -234,44 +118,29 @@ body::before {
             <input type="text" value="{{ awerness_details[4] }}" name="due_date" readonly>
         {% else %}
             <p>No details found.</p>
-        {% endif %}</div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="profile-box">
-                    <img src="https://via.placeholder.com/150" alt="Profile">
-                    {% for user in users %}
-                    <h4><option value="{{ user[1] }}">{{ user[1] }}</option></h4>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="tweet-box">
-                    <div class="close-button">
-                        <i class="fas fa-times"></i>
-                    </div>
-                    <div class="whats-happening-image">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnvYK9zxFoy-PW7kK5fj7CIoMQz5U-fJK3bg&usqp=CAU" alt="What's happening image">
-                    </div>
-                    <textarea placeholder="What's happening?" id="text" name="text"></textarea>
-                    <div class="tweet-actions">
-                        <label for="image" class="file-input-label">
-                            <i class="fas fa-image"></i> 
-                        </label>
-                        <input type="file" id="image" name="image" accept="image/*" style="display: none;">
-                        <i class="fas fa-poll"></i>
-                        <i class="fas fa-location-arrow"></i>
-                        <i class="fas fa-smile"></i>
-                        <input type="checkbox" id="editable" name="editable" value="TRUE" style="display: none;">
-                       
-                        <input type="submit"  class="tweet-button" value="Tweet">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-</form>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        {% endif %}
+
+        <!-- User input fields -->
+        <label for="userid">User ID:</label>
+        <select id="userid" name="userid">
+            {% for user in users %}
+                <option value="{{ user[1] }}">{{ user[1] }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="image">Image:</label>
+        <input type="file" id="image" name="image" accept="image/*">
+
+        <label for="text">Text:</label>
+        <textarea id="text" name="text" rows="4" cols="50"></textarea>
+
+        <label for="editable">Editable:</label>
+        <input type="checkbox" id="editable" name="editable" value="TRUE" style="display: none;">
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <!-- Link to go back to Awareness Admin page -->
+    <a href="{{ url_for('awerness_admin') }}">Back to Awareness Admin</a>
 </body>
 </html>
