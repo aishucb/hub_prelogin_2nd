@@ -492,9 +492,9 @@ def submit_form_awerness_user():
                 # Insert data into the SQL table 'user_awerness_submission'
                 insert_query = """
                     INSERT INTO user_awerness_submission (assignment_id, course_id, category_id, description, due_date, user_id, image_filename, text, editable)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, TRUE);
                 """
-                cursor.execute(insert_query, (assignment_id, course_id, category_id, description, due_date, user_id, image_filename, text, editable))
+                cursor.execute(insert_query, (assignment_id, course_id, category_id, description, due_date, user_id, image_filename, text))
 
                 mysql_connection.commit()
 
