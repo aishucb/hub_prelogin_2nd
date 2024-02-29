@@ -252,7 +252,7 @@ def update_mark(awerness_id):
     # Return an empty response (HTTP 204 No Content)
     return make_response("", 204)
 
-@app.route('/update_mark/<int:awerness_id>', methods=['POST'])
+@app.route('/post_tweet/<int:awerness_id>', methods=['POST'])
 def post_tweet(awerness_id):
     try:
         # Establish MySQL connection
@@ -261,11 +261,8 @@ def post_tweet(awerness_id):
         if mysql_connection.is_connected():
             cursor = mysql_connection.cursor()
 
-            # Update the mark based on the form submission
-            new_mark = request.form.get('new_mark')
-            print(f"Awerness ID: {awerness_id}, New Mark: {new_mark}")  # Add this line for debugging
-            print(new_mark)
-            update_query = f"UPDATE user_awerness_submission SET editable =  WHERE submission_id = {awerness_id};"
+
+            update_query = f"UPDATE user_awerness_submission SET editable = 0 WHERE submission_id = {awerness_id};"
             print(f"Update Query: {update_query}")  # Add this line for debugging
 
             cursor.execute(update_query)
